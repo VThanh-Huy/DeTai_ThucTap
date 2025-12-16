@@ -1,0 +1,30 @@
+/* Pagination Tour */
+.tour-pagination {
+    gap: 10%; 
+}
+
+.tour-pagination .page-link {
+    border: none;
+    background: transparent;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+}
+
+.tour-pagination .page-link:hover {
+    color: #000;
+    font-weight: 900;
+    background: transparent;
+}
+
+/* Số trang hiện tại */
+.tour-pagination .active .page-link {
+    font-weight: 500;
+    color: #9e8e8e;
+    background: transparent;
+}
+
+.tour-pagination .disabled .page-link {
+    color: #aaa;
+}

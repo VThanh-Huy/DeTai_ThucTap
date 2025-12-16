@@ -1,0 +1,89 @@
+/* NAVBAR MENU */
+.navbar-nav .nav-link {
+    font-weight: 600;         
+    font-size: 1.15rem;        
+    padding: 0.5rem 2.5rem;   
+    color: #000 !important;    
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+.navbar-nav .nav-link:hover {
+    color: #268bd8 !important; 
+}
+
+
+.navbar-nav .nav-link.active {
+    color: #000 !important;        
+    font-weight: 700;
+    position: relative;
+}
+
+/* Gạch chân nhẹ phía dưới */
+.navbar-nav .nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+    width: 70%;
+    height: 3px;
+    background-color: #000;
+    border-radius: 5px;
+}
+.pt-navbar {
+    padding-top: 80px; /* chiều cao navbar */
+}
+
+.tour-card {
+    transition: all 0.3s ease;
+}
+.tour-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.hero {
+    position: relative;
+    height: 450px;
+    overflow: hidden;
+}
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.hero-search {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* Dropdown hover */
+/* Dịch dropdown sang phải & lên trên */
+.user-dropdown .dropdown-menu {
+    margin-top: -10%;          /* lên cao hơn */
+    transform: translateX(-25%); /* sang trái */
+}
+
+
+.dropdown-hover:hover .dropdown-menu {
+    display: block;
+}
+
+.hero-img{
+    height: 80vh;
+}
+
+/* css footer */
+.footer {
+    font-size: 15px;
+}
+
+.footer-link {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.footer-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}

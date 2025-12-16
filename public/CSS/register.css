@@ -1,0 +1,13 @@
+.card {
+    border-radius: 15px;
+}
+
+input:focus {
+    box-shadow: none;
+    border-color: #0d6efd;
+}
+
+.sticky-top img {
+    max-height: 300px;
+    object-fit: cover;
+}
