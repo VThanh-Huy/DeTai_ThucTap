@@ -21,12 +21,16 @@ class Booking extends Model
     public $timestamps = false;
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
 
     public function tour()
     {
-        return $this->belongsTo(Tour::class);
+        return $this->belongsTo(
+            Tour::class,
+            'id_tour',   // khóa ngoại trong booking
+            'id_tour'    // khóa chính trong tour
+        );
     }
 }
-

@@ -16,27 +16,29 @@ class LoginController extends Controller
 
     // Xử lý đăng nhập
     public function login(Request $request)
-{
-    $request->validate([
-        'login' => 'required',
-        'password' => 'required',
-    ]);
+    {
+        $request->validate([
+            'login' => 'required',
+            'password' => 'required',
+        ]);
 
-    $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL)
-        ? 'email'
-        : 'name';
+        $loginType = filter_var($request->login, FILTER_VALIDATE_EMAIL)
+            ? 'email'
+            : 'name';
 
-    if (Auth::attempt([
-        $loginType => $request->login,
-        'password' => $request->password,
-    ])) {
-        $request->session()->regenerate();
-        return redirect('/')->with('success', 'Đăng nhập thành công!');
+        if (Auth::attempt([
+            $loginType => $request->login,
+            'password' => $request->password,
+        ])) {
+            if (Auth::user()->role === 'admin') {
+                return redirect()->intended(route('admin.dashboard'));
+            }
+            $request->session()->regenerate();
+            return redirect('/')->with('success', 'Đăng nhập thành công!');
+        }
+
+        return back()->withErrors([
+            'login' => 'Tên đăng nhập hoặc mật khẩu không đúng',
+        ]);
     }
-
-    return back()->withErrors([
-        'login' => 'Tên đăng nhập hoặc mật khẩu không đúng',
-    ]);
-}
-
 }
