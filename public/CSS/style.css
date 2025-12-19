@@ -1,4 +1,4 @@
-/* NAVBAR MENU */
+
 .navbar-nav .nav-link {
     font-weight: 600;         
     font-size: 1.15rem;        
@@ -7,7 +7,6 @@
     transition: all 0.2s ease;
 }
 
-/* Hover */
 .navbar-nav .nav-link:hover {
     color: #268bd8 !important; 
 }
@@ -19,7 +18,7 @@
     position: relative;
 }
 
-/* Gạch chân nhẹ phía dưới */
+
 .navbar-nav .nav-link.active::after {
     content: "";
     position: absolute;
@@ -31,7 +30,7 @@
     border-radius: 5px;
 }
 .pt-navbar {
-    padding-top: 80px; /* chiều cao navbar */
+    padding-top: 80px; 
 }
 
 .tour-card {
@@ -57,11 +56,10 @@
     left: 50%;
     transform: translateX(-50%);
 }
-/* Dropdown hover */
-/* Dịch dropdown sang phải & lên trên */
+
 .user-dropdown .dropdown-menu {
-    margin-top: -10%;          /* lên cao hơn */
-    transform: translateX(-25%); /* sang trái */
+    margin-top: -10%;        
+    transform: translateX(-25%); 
 }
 
 

@@ -3,21 +3,35 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminBookingController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\HuongDanVienController;
+use App\Http\Controllers\Admin\TourController;
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
+    ->name('admin.')
     ->group(function () {
+        Route::get('/', [AdminController::class, 'dashboard'])
+            ->name('dashboard');
 
-    Route::get('/', [AdminController::class, 'dashboard'])
-        ->name('admin.dashboard');
+        // router cho admin về danh sách tour 
+        Route::get('/bookings', [AdminBookingController::class, 'index'])
+            ->name('bookings');
 
-    // router cho admin về danh sách tour 
-    Route::get('/bookings', [AdminBookingController::class, 'index'])
-        ->name('admin.bookings');
+        Route::post('/bookings/{id}/approve', [AdminBookingController::class, 'approve'])
+            ->name('bookings.approve');
 
-    Route::post('/bookings/{id}/approve', [AdminBookingController::class, 'approve'])
-        ->name('admin.bookings.approve');
+        Route::post('/bookings/{id}/cancel', [AdminBookingController::class, 'cancel'])
+            ->name('bookings.cancel');
 
-    Route::post('/bookings/{id}/cancel', [AdminBookingController::class, 'cancel'])
-        ->name('admin.bookings.cancel');
-});
+        Route::get('/users', [UserController::class, 'index'])
+            ->name('users');
+        Route::post('/users/{id}/change-role', [UserController::class, 'changeRole'])
+            ->name('users.changeRole');
+
+        Route::resource('tour', TourController::class)
+            ->except(['show']);
+
+        Route::resource('huongdanvien', HuongDanVienController::class)
+            ->except(['show']);
+    });

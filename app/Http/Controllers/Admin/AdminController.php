@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use App\Models\KhachHang;
 use App\Models\Tour;
 
 class AdminController extends Controller
@@ -13,6 +14,7 @@ class AdminController extends Controller
         return view('admin.dashboard', [
             'tourCount' => Tour::count(),
             'bookingCount' => Booking::count(),
+            'KhachHangCount' => KhachHang::count(),
             'pendingBooking' => Booking::where('trang_thai', 'CHO_XAC_NHAN')->count(),
         ]);
     }
