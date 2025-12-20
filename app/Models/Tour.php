@@ -9,7 +9,7 @@ class Tour extends Model
     protected $table = 'tour';
     protected $primaryKey = 'id_tour';
 
-    public $timestamps = false; // bạn không có created_at, updated_at
+    public $timestamps = false; 
 
     protected $fillable = [
         'ten_tour',
@@ -31,7 +31,7 @@ class Tour extends Model
             'id_hdv'      // primary key bảng huong_dan_vien
         );
     }
-
+    
 
     public function lichTrinh()
     {
@@ -47,9 +47,7 @@ class Tour extends Model
             'id_dd'
         );
     }
-    /**
-     * 1 tour có nhiều đánh giá
-     */
+
     public function reviews()
     {
         return $this->hasMany(Review::class, 'id_tour', 'id_tour');

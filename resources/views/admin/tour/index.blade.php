@@ -13,13 +13,8 @@
             <th>Tên tour</th>
             <th>Giá</th>
             <th>Thời gian</th>
-            <th>Mô tả</th>
-            <th>Số chỗ</th>
-            <th>Hình ảnh</th>
-            <th>Hướng dẫn viên</th>
-            <th>Ngày khởi hành</th>
             <th>Trạng thái</th>
-            <th>Chỉnh sửa</th>
+            <th>Thao tác</th>
         </tr>
 
         @foreach ($tours as $tour)
@@ -28,20 +23,52 @@
                 <td>{{ $tour->ten_tour }}</td>
                 <td>{{ number_format($tour->gia_tien) }}đ</td>
                 <td>{{ $tour->so_ngay }} ngày</td>
-                <td>{{ $tour->mo_ta }}</td>
-                <td>{{ $tour->so_cho }}</td>
-                <td>{{ $tour->hinh_anh }}</td>
-                <td>{{ $tour->id_hdv }}</td>
-                <td>{{ $tour->ngay_bat_dau }}</td>
-                <td>{{ $tour->trang_thai }}</td>
-
                 <td>
-                    <button class="btn btn-outline-info" onclick="openEditModal({{ $tour }})">Sửa</button>
-                    <button class="btn btn-outline-danger" onclick="openDeleteModal({{ $tour->id_tour }})">Xóa</button>
+                    {{ $tour->trang_thai ? 'Đang mở' : 'Đã đóng' }}
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary" onclick='openDetailModal(@json($tour))'>
+                        Xem chi tiết
+                    </button>
                 </td>
             </tr>
         @endforeach
     </table>
+
+
+    <div id="detailModal" class="modal">
+        <div class="modal-content" style="max-width:700px">
+            <span class="close" onclick="closeDetailModal()">&times;</span>
+
+            <h3 id="detail_ten_tour"></h3>
+
+            <p><b>Giá:</b> <span id="detail_gia"></span></p>
+            <p><b>Số ngày:</b> <span id="detail_so_ngay"></span></p>
+            <p><b>Số chỗ:</b> <span id="detail_so_cho"></span></p>
+            <p><b>Ngày khởi hành:</b> <span id="detail_ngay"></span></p>
+
+            <p><b>Mô tả:</b></p>
+            <p id="detail_mo_ta"></p>
+
+            <p><b>Miền:</b> <span id="detail_mien"></span></p>
+
+            <p><b>Địa điểm:</b></p>
+            <ul id="detail_dia_diem"></ul>
+            <div class="actions" style="text-align:center; margin-top:20px">
+                <button class="btn btn-outline-primary" id="btnEditTour">
+                    Sửa
+                </button>
+
+
+                <button class="btn btn-outline-danger" id="btnDeleteTour">
+                    Xóa
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
 
     <div id="createModal" class="modal">
         <div class="modal-content">
@@ -75,7 +102,15 @@
                 <input id="edit_ten_tour" name="ten_tour">
                 <input id="edit_gia_tien" type="number" name="gia_tien">
                 <input id="edit_so_ngay" type="number" name="so_ngay">
-                <textarea id="edit_mo_ta" name="mo_ta"></textarea>
+                <select id="mienSelect">
+                    <option value="">-- Chọn miền --</option>
+                    @foreach ($miens as $mien)
+                        <option value="{{ $mien->id_mien }}">{{ $mien->ten_mien }}</option>
+                    @endforeach
+                </select>
+                <div id="diaDiemBox"></div>
+
+                <textarea id="edit_mo_ta" class="w-100" name="mo_ta"></textarea>
 
                 <button type="submit">Cập nhật</button>
             </form>

@@ -5,13 +5,18 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tour;
 use Illuminate\Http\Request;
+use App\Models\Mien;
+use App\Models\HuongDanVien;
 
 class TourController extends Controller
 {
     public function index()
     {
-        $tours = Tour::all();
-        return view('admin.tour.index', compact('tours'));
+        return view('admin.tour.index', [
+            'tours' => Tour::with('diaDiems.mien')->get(),
+            'miens' => Mien::all(),
+            'hdvs'  => HuongDanVien::all()
+        ]);
     }
 
     public function store(Request $request)
@@ -23,7 +28,14 @@ class TourController extends Controller
     public function update(Request $request, $id)
     {
         $tour = Tour::findOrFail($id);
-        $tour->update($request->all());
+        $tour->update($request->except('dia_diem'));
+
+        if ($request->has('dia_diem')) {
+            $tour->diaDiems()->sync($request->dia_diem);
+        } else {
+            $tour->diaDiems()->sync([]);
+        }
+
         return redirect()->back();
     }
 

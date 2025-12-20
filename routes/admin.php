@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminBookingController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\HuongDanVienController;
 use App\Http\Controllers\Admin\TourController;
+use App\Http\Controllers\Admin\DiaDiemController;
 
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
@@ -31,6 +32,11 @@ Route::middleware(['auth', 'admin'])
 
         Route::resource('tour', TourController::class)
             ->except(['show']);
+
+        Route::get('/dia-diem-by-mien/{id}', function ($id) {
+            return \App\Models\DiaDiem::where('id_mien', $id)->get();
+        });
+
 
         Route::resource('huongdanvien', HuongDanVienController::class)
             ->except(['show']);

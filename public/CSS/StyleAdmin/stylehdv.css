@@ -19,7 +19,7 @@ table tr:hover{
 
 .modal-content {
     background: #fff;
-    width: 450px;
+    width: 60%;
     margin: 5% auto;
     padding: 20px 25px;
     border-radius: 10px;
@@ -97,3 +97,7 @@ table tr:hover{
     gap: 10px;
 }
 
+.actions{
+    display: flex;
+    gap: 5%;
+}
