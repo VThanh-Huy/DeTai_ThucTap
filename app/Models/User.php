@@ -45,4 +45,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function khachHang()
+    {
+        return $this->hasOne(
+            KhachHang::class,
+            'user_id', // khóa ngoại trong bảng khach_hang
+            'id'       // khóa chính trong users
+        );
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

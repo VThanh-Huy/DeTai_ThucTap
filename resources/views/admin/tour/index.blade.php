@@ -42,44 +42,65 @@
 
 
     <div id="detailModal" class="modal">
-        <div class="modal-content" style="max-width:700px">
+    <div class="modal-content detail-modal">
+
+        <!-- HEADER -->
+        <div class="modal-header">
             <span class="close" onclick="closeDetailModal()">&times;</span>
+            <h4 id="detail_ten_tour" class="fw-bold mb-0"></h4>
+        </div>
 
-            <h3 id="detail_ten_tour"></h3>
+        <!-- BODY -->
+        <div class="modal-body">
 
-            <p><b>Giá:</b> <span id="detail_gia"></span></p>
-            <p><b>Số ngày:</b> <span id="detail_so_ngay"></span></p>
-            <p><b>Số chỗ:</b> <span id="detail_so_cho"></span></p>
-            <p><b>Ngày khởi hành:</b> <span id="detail_ngay"></span></p>
+            <div class="row g-3">
+                <!-- THÔNG TIN -->
+                <div class="col-md-7">
+                    <div class="info-box">
+                        <p><strong>Giá:</strong> <span id="detail_gia"></span></p>
+                        <p><strong>Số ngày:</strong> <span id="detail_so_ngay"></span></p>
+                        <p><strong>Số chỗ:</strong> <span id="detail_so_cho"></span></p>
+                        <p><strong>Ngày khởi hành:</strong> <span id="detail_ngay"></span></p>
+                        <p><strong>Miền:</strong> <span id="detail_mien"></span></p>
+                        <p><strong>Hướng dẫn viên:</strong> <span id="detail_hdv"></span></p>
+                    </div>
+                </div>
 
-            <p><b>Mô tả:</b></p>
-            <p id="detail_mo_ta"></p>
+                <!-- HÌNH ẢNH -->
+                <div class="col-md-5 text-center">
+                    <img id="detail_image" class="img-fluid rounded shadow"
+                        src="" alt="Ảnh tour">
+                </div>
+            </div>
 
-            <p><b>Miền:</b> <span id="detail_mien"></span></p>
+            <!-- MÔ TẢ -->
+            <div class="mt-4">
+                <h6 class="fw-bold">Mô tả</h6>
+                <p id="detail_mo_ta" class="text-muted"></p>
+            </div>
 
-            <p><b>Địa điểm:</b></p>
-            <p><b>Hướng dẫn viên:</b>
-                <span id="detail_hdv"></span>
-            </p>
-
-            <p><b>Hình ảnh:</b></p>
-            <img class="w-50" id="detail_image" src="{{ asset('images/tours/' . $tour->hinh_anh) }}">
-
-            <ul id="detail_dia_diem"></ul>
-            <div class="actions">
-                <button class="btn btn-outline-primary" id="btnEditTour">
-                    Sửa
-                </button>
-
-
-                <button class="btn btn-outline-danger" id="btnDeleteTour">
-                    Xóa
-                </button>
+            <!-- ĐỊA ĐIỂM -->
+            <div class="mt-3">
+                <h6 class="fw-bold">Địa điểm</h6>
+                <ul id="detail_dia_diem" class="list-group list-group-flush"></ul>
             </div>
 
         </div>
 
+        <!-- FOOTER -->
+        <div class="modal-footer actions">
+            <button class="btn btn-outline-primary" id="btnEditTour">
+                ✏️ Sửa
+            </button>
+
+            <button class="btn btn-outline-danger" id="btnDeleteTour">
+                🗑️ Xóa
+            </button>
+        </div>
+
     </div>
+</div>
+
 
 
     <div id="createModal" class="modal">

@@ -5,37 +5,38 @@ namespace App\Http\Controllers;
 use App\Models\Tour;
 use Illuminate\Http\Request;
 use App\Models\Booking;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 
 class TourController extends Controller
 {
 
     public function index(Request $request)
-{
-    $query = Tour::withAvg('reviews', 'so_sao');
+    {
+        $query = Tour::withAvg('reviews', 'so_sao');
 
-    //  Tìm theo tên
-    if ($request->filled('keyword')) {
-        $query->where('ten_tour', 'like', '%' . $request->keyword . '%');
+        //  Tìm theo tên
+        if ($request->filled('keyword')) {
+            $query->where('ten_tour', 'like', '%' . $request->keyword . '%');
+        }
+
+        //  Ngày bắt đầu
+        if ($request->filled('start_date')) {
+            $query->whereDate('ngay_bat_dau', '>=', $request->start_date);
+        }
+
+        // Ngày kết thúc
+        if ($request->filled('end_date')) {
+            $query->whereDate('ngay_ket_thuc', '<=', $request->end_date);
+        }
+
+        $tours = $query
+            ->orderBy('id_tour', 'desc')
+            ->paginate(9)
+            ->withQueryString();
+
+        return view('tour.index', compact('tours'));
     }
-        
-    //  Ngày bắt đầu
-    if ($request->filled('start_date')) {
-        $query->whereDate('ngay_bat_dau', '>=', $request->start_date);
-    }
-
-    // Ngày kết thúc
-    if ($request->filled('end_date')) {
-        $query->whereDate('ngay_ket_thuc', '<=', $request->end_date);
-    }
-
-    $tours = $query
-        ->orderBy('id_tour', 'desc')
-        ->paginate(9)
-        ->withQueryString();
-
-    return view('tour.index', compact('tours'));
-}
 
 
     public function show($id)
@@ -44,11 +45,35 @@ class TourController extends Controller
             'huongDanVien',
             'lichTrinh',
             'diaDiems',
+            'reviews' => function ($q) {
+                $q->whereNotNull('user_id');
+            },
             'reviews.user'
         ])->findOrFail($id);
 
-        return view('tour.show', compact('tour'));
+
+        $daDatTour = false;
+        $daDanhGia = false;
+
+        if (Auth::check()) {
+            // Kiểm tra đã đặt tour chưa
+            $daDatTour = Booking::where('user_id', Auth::id())
+                ->where('id_tour', $id)
+                ->exists();
+
+            // Kiểm tra đã đánh giá chưa
+            $daDanhGia = Review::where('user_id', Auth::id())
+                ->where('id_tour', $id)
+                ->exists();
+        }
+
+        return view('tour.show', compact(
+            'tour',
+            'daDatTour',
+            'daDanhGia'
+        ));
     }
+
 
     public function datTour(Request $request, $id)
     {

@@ -20,6 +20,7 @@ class TourController extends Controller
         ]);
     }
 
+    
     public function store(Request $request)
     {
         Tour::create($request->all());

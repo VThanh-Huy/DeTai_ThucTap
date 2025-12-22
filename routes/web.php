@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -7,10 +6,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TourController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::view('/gioi-thieu', 'pages.about')->name('about');
+Route::view('/lien-he', 'pages.contact')->name('contact');
 
 Route::get('/tour', [TourController::class, 'index'])->name('tour.index');
 // route đăng ký:
@@ -44,3 +48,12 @@ Route::post('/tour/{id}/dat-tour', [TourController::class, 'datTour'])
     ->middleware('auth')
     ->name('booking.store');
 
+// routes đánh giá:
+Route::post('/tour/{id}/review', [ReviewController::class, 'store'])
+    ->middleware('auth')
+    ->name('review.store');
+
+// routes trang cá nhân:
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->middleware('auth')
+    ->name('profile');

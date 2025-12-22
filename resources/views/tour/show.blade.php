@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="container mt-5 pt-5">
 
         <div class="row">
@@ -35,7 +36,6 @@
             </div>
         </div>
 
-        <!-- LỊCH TRÌNH -->
         <div class="mt-5">
             <h4 class="fw-bold">Lịch trình</h4>
             <ul class="list-group">
@@ -47,13 +47,36 @@
             </ul>
         </div>
 
-        <!-- REVIEW -->
+        <!-- đánh giá -->
+        @auth
+            @if ($daDatTour && !$daDanhGia)
+                <form method="POST" action="{{ route('review.store', $tour->id_tour) }}">
+                    @csrf
+
+                    <label>Đánh giá của bạn</label>
+                    <select name="so_sao" class="form-select mb-2" required>
+                        <option value="">-- Chọn sao --</option>
+                        @for ($i = 5; $i >= 1; $i--)
+                            <option value="{{ $i }}">{{ $i }} sao</option>
+                        @endfor
+                    </select>
+
+                    <textarea name="noi_dung" class="form-control mb-2" placeholder="Nhận xét"></textarea>
+
+                    <button class="btn btn-warning">Gửi đánh giá</button>
+                </form>
+            @endif
+        @endauth
+
         <div class="mt-5">
             <h4 class="fw-bold">Đánh giá</h4>
 
             @forelse ($tour->reviews as $review)
                 <div class="border rounded p-3 mb-3">
-                    <strong>{{ $review->user->name }}</strong>
+                    <strong>
+                        {{ $review->user->name ?? 'Khách ẩn danh' }}
+                    </strong>
+
                     <div class="text-warning">
                         @for ($i = 1; $i <= 5; $i++)
                             {{ $i <= $review->so_sao ? '⭐' : '☆' }}

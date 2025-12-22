@@ -32,7 +32,6 @@ class Tour extends Model
         );
     }
     
-
     public function lichTrinh()
     {
         return $this->hasMany(LichTrinh::class, 'id_tour');
