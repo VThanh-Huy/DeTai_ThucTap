@@ -12,8 +12,9 @@ class TourController extends Controller
 {
     public function index()
     {
+        
         return view('admin.tour.index', [
-            'tours' => Tour::with('diaDiems.mien')->get(),
+            'tours' => Tour::with('diaDiems.mien', 'huongDanVien')->get(),
             'miens' => Mien::all(),
             'hdvs'  => HuongDanVien::all()
         ]);
@@ -28,8 +29,24 @@ class TourController extends Controller
     public function update(Request $request, $id)
     {
         $tour = Tour::findOrFail($id);
-        $tour->update($request->except('dia_diem'));
 
+        $data = $request->except(['dia_diem', 'hinh_anh']);
+
+        if ($request->hasFile('hinh_anh')) {
+            $file = $request->file('hinh_anh');
+
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('images/tours'), $filename);
+
+            $data['hinh_anh'] = $filename;
+
+
+            $data['hinh_anh'] = $filename;
+        }
+
+        $tour->update($data);
+
+        // sync địa điểm
         if ($request->has('dia_diem')) {
             $tour->diaDiems()->sync($request->dia_diem);
         } else {
@@ -38,6 +55,7 @@ class TourController extends Controller
 
         return redirect()->back();
     }
+
 
     public function destroy($id)
     {

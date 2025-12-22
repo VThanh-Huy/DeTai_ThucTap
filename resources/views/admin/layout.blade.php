@@ -18,6 +18,8 @@
             <a href="{{ route('admin.dashboard') }}">Dashboard</a>
             <a href="{{ route('admin.tour.index') }}">Danh sách tour</a>
             <a href="{{ route('admin.bookings') }}">Quản lý booking</a>
+            <a href="{{ route('admin.dia_diem.index') }}">Quản lý địa điểm</a>
+            <a href="{{ route('admin.khachhang.index') }}">Khách Hàng</a>
             <a href="{{ route('admin.users') }}">Quản lý người dùng</a>
             <a href="{{ route('admin.huongdanvien.index') }}">Quản lý hướng dẫn viên</a>
             <form method="POST" action="{{ route('logout') }}">
@@ -45,6 +47,7 @@
         </div>
 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
 
 </body>

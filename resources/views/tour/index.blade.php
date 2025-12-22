@@ -12,7 +12,19 @@
 
     <div class="container mt-5">
 
-        <h2 class="fw-bold mb-4">Danh sách tour</h2>
+        <h2 class="mb-4">
+            @if (request()->hasAny(['keyword', 'start_date', 'end_date']))
+                Kết quả tìm kiếm
+            @else
+                Danh sách tour
+            @endif
+        </h2>
+
+        @if ($tours->count() == 0)
+            <div class="alert alert-warning">
+                Không tìm thấy tour phù hợp
+            </div>
+        @endif
 
         <div class="row g-4">
 
@@ -32,7 +44,7 @@
                                 {{ number_format($tour->gia_tien, 0, ',', '.') }} VND
                             </p>
 
-                            <!-- ⭐ Hiển thị sao -->
+                            <!-- Hiển thị sao -->
                             @php
                                 $rating = round($tour->reviews_avg_so_sao ?? 0);
                             @endphp

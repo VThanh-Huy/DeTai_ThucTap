@@ -5,19 +5,28 @@
     <div class="hero mt-2 pt-4">
         <img src="{{ asset('images/home/main_Image.jpg') }}">
 
-        <div class="hero-search bg-white shadow p-3 rounded d-flex gap-3">
-            <div>
-                <label class="fw-semibold">Ngày khởi hành</label>
-                <input type="date" class="form-control">
-            </div>
-            <div>
-                <label class="fw-semibold">Ngày kết thúc</label>
-                <input type="date" class="form-control">
-            </div>
-            <div class="d-flex align-items-end">
-                <button class="btn btn-primary px-4">Tìm kiếm</button>
-            </div>
-        </div>
+        <form action="{{ route('tour.index') }}" method="GET"
+      class="hero-search bg-white shadow p-3 rounded d-flex gap-3">
+
+    <div>
+        <label class="fw-semibold">Ngày khởi hành</label>
+        <input type="date" class="form-control" name="start_date"
+               value="{{ request('start_date') }}">
+    </div>
+
+    <div>
+        <label class="fw-semibold">Ngày kết thúc</label>
+        <input type="date" class="form-control" name="end_date"
+               value="{{ request('end_date') }}">
+    </div>
+
+    <div class="d-flex align-items-end">
+        <button class="btn btn-primary px-4">
+            Tìm kiếm
+        </button>
+    </div>
+</form>
+
     </div>
 
     <!-- TOUR GỢI Ý -->

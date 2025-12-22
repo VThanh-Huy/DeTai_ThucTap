@@ -28,7 +28,9 @@ function initDiaDiemByMien(tour = null) {
                 }
 
                 data.forEach((dd) => {
-                    const checked = selected.includes(dd.id_dd)? "checked": "";
+                    const checked = selected.includes(dd.id_dd)
+                        ? "checked"
+                        : "";
 
                     diaDiemBox.innerHTML += `
                         <label>
@@ -62,7 +64,6 @@ function openEditModal(tour) {
         mienSelect.value = tour.dia_diems[0].id_mien;
         mienSelect.dispatchEvent(new Event("change"));
     }
-
 }
 
 function closeEditModal() {
@@ -112,6 +113,26 @@ function openDetailModal(tour) {
         });
     } else {
         ul.innerHTML = "<li>Chưa có địa điểm</li>";
+    }
+    // Hướng dẫn viên
+    const hdvSpan = document.getElementById("detail_hdv");
+    if (tour.huong_dan_vien) {
+        hdvSpan.innerText = tour.huong_dan_vien.ten_hdv;
+    } else {
+        hdvSpan.innerText = "Chưa có";
+    }
+
+    // Hình ảnh
+    const img = document.getElementById("detail_image");
+    if (tour.hinh_anh) {
+        img.src = `/images/tours/${tour.hinh_anh}`;
+        img.style.display = "block";
+    } else { 
+        img.style.display = "none";
+    }
+
+    if (tour.id_hdv) {
+        document.getElementById("edit_id_hdv").value = tour.id_hdv;
     }
 }
 

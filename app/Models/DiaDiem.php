@@ -13,6 +13,7 @@ class DiaDiem extends Model
 
     protected $fillable = [
         'ten_dia_diem',
+        'id_mien',
         'id_mien'
     ];
 

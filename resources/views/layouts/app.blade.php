@@ -71,12 +71,16 @@
 
 
                 <!-- Search -->
-                <form class="d-flex position-relative me-3">
-                    <input class="form-control rounded-pill pe-5" type="search" placeholder="Tìm kiếm...">
+                <form class="d-flex position-relative me-3" action="{{ route('tour.index') }}" method="GET">
+
+                    <input class="form-control rounded-pill pe-5" type="search" name="keyword"
+                        value="{{ request('keyword') }}" placeholder="Tìm tour...">
+
                     <button class="btn position-absolute end-0 me-2" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
                 </form>
+
 
                 <!-- User Dropdown -->
                 <div class="dropdown dropdown-hover user-dropdown">

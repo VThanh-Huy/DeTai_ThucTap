@@ -9,14 +9,33 @@ use Illuminate\Support\Facades\Auth;
 
 class TourController extends Controller
 {
-    public function index()
-    {
-        $tours = Tour::withAvg('reviews', 'so_sao')
-            ->orderBy('id_tour', 'desc')
-            ->paginate(9);
 
-        return view('tour.index', compact('tours'));
+    public function index(Request $request)
+{
+    $query = Tour::withAvg('reviews', 'so_sao');
+
+    //  Tìm theo tên
+    if ($request->filled('keyword')) {
+        $query->where('ten_tour', 'like', '%' . $request->keyword . '%');
     }
+        
+    //  Ngày bắt đầu
+    if ($request->filled('start_date')) {
+        $query->whereDate('ngay_bat_dau', '>=', $request->start_date);
+    }
+
+    // Ngày kết thúc
+    if ($request->filled('end_date')) {
+        $query->whereDate('ngay_ket_thuc', '<=', $request->end_date);
+    }
+
+    $tours = $query
+        ->orderBy('id_tour', 'desc')
+        ->paginate(9)
+        ->withQueryString();
+
+    return view('tour.index', compact('tours'));
+}
 
 
     public function show($id)
@@ -39,7 +58,7 @@ class TourController extends Controller
             'so_luong' => 'required|integer|min:1',
             'phuong_thuc_tt' => 'required',
         ]);
-        
+
         Booking::create([
             'user_id'  => Auth::id(),
             'id_tour' => $id,
@@ -55,5 +74,3 @@ class TourController extends Controller
             ->with('success', 'Đặt tour thành công! Vui lòng chờ xác nhận.');
     }
 }
-
-

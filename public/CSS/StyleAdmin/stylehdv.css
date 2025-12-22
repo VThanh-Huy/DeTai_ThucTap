@@ -5,11 +5,12 @@ table{
 table tr:hover{
     background-color: rgb(215, 240, 245);
 }
-.ds_hdv{
+.ds_hdv, .ds_dd, .ds_kh{
     border:1px solid #ccc; 
     margin:10px; padding:10px; 
     background:white
-}.modal {
+}
+.modal {
     display: none;
     position: fixed;
     inset: 0;
@@ -101,3 +102,27 @@ table tr:hover{
     display: flex;
     gap: 5%;
 }
+
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: white;
+}
+
+.badge-danger {
+    background: #d9534f;
+}
+
+.badge-info {
+    background: #5bc0de;
+}
+
+/* css địa điểm */
+.table-fixed th,
+.table-fixed td {
+    text-align: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+}
+
