@@ -28,6 +28,7 @@
             <li><a href="{{ route('admin.khachhang.index') }}">👥 Khách hàng</a></li>
             <li><a href="{{ route('admin.users') }}">👤 Người dùng</a></li>
             <li><a href="{{ route('admin.huongdanvien.index') }}">🧑‍✈️ Hướng dẫn viên</a></li>
+            <li><a href="{{ route('admin.statistics.revenue') }}">📈Thống kê doanh thu</a></li>
         </ul>
 
         <div class="sidebar-footer">

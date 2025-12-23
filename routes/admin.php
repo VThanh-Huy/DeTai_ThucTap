@@ -8,6 +8,8 @@ use App\Http\Controllers\Admin\HuongDanVienController;
 use App\Http\Controllers\Admin\TourController;
 use App\Http\Controllers\Admin\DiaDiemController;
 use App\Http\Controllers\Admin\KhachHangController;
+use App\Http\Controllers\Admin\StatisticController;
+
 Route::middleware(['auth', 'admin'])
     ->prefix('admin')
     ->name('admin.')
@@ -22,8 +24,15 @@ Route::middleware(['auth', 'admin'])
         Route::post('/bookings/{id}/approve', [AdminBookingController::class, 'approve'])
             ->name('bookings.approve');
 
+        Route::post('/bookings/{id}/complete', [AdminBookingController::class, 'complete'])
+            ->name('bookings.complete');
+
         Route::post('/bookings/{id}/cancel', [AdminBookingController::class, 'cancel'])
             ->name('bookings.cancel');
+
+        Route::post('/bookings/{id}/undo',[AdminBookingController::class, 'undo'])
+            ->name('bookings.undo');
+
 
         // route admin -> user
         Route::get('/users', [UserController::class, 'index'])
@@ -69,4 +78,8 @@ Route::middleware(['auth', 'admin'])
 
         Route::delete('/khachhang/{id}', [KhachHangController::class, 'destroy'])
             ->name('khachhang.destroy');
-    });
+
+        // routes doanh thu
+        Route::get('statistics/revenue',[StatisticController::class, 'revenue'])
+            ->name('statistics.revenue');
+});

@@ -24,11 +24,32 @@ class AdminBookingController extends Controller
         return back()->with('success', 'Đã duyệt đơn');
     }
 
+    public function complete($id)
+    {
+        Booking::where('id_booking', $id)
+            ->update(['trang_thai' => 'HOAN_THANH']);
+
+        return back()->with('success', 'Đã hoàn thành tour');
+    }
+
     public function cancel($id)
     {
         Booking::where('id_booking', $id)
             ->update(['trang_thai' => 'DA_HUY']);
 
         return back()->with('success', 'Đã hủy đơn');
+    }
+
+    public function undo($id)
+    {
+        $booking = Booking::findOrFail($id);
+
+        if (in_array($booking->trang_thai, ['HOAN_THANH', 'DA_HUY'])) {
+            $booking->update([
+                'trang_thai' => 'DA_XAC_NHAN'
+            ]);
+        }
+
+        return back()->with('success', 'Hoàn tác trạng thái thành công!');
     }
 }
