@@ -11,67 +11,100 @@
 </head>
 
 <body>
+    @php
+        $role = auth('admin')->user()->role;
+    @endphp
 
-<div class="admin-wrapper d-flex">
+    <div class="admin-wrapper d-flex">
 
-    <!-- SIDEBAR -->
-    <aside class="admin-sidebar">
-        <div class="sidebar-header">
-            <h4>ADMIN PANEL</h4>
-        </div>
+        <!-- SIDEBAR -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h4>ADMIN PANEL</h4>
+            </div>
 
-        <ul class="sidebar-menu">
-            <li><a href="{{ route('admin.dashboard') }}">📊 Dashboard</a></li>
-            <li><a href="{{ route('admin.tour.index') }}">🧳 Quản lý tour</a></li>
-            <li><a href="{{ route('admin.bookings') }}">📑 Booking</a></li>
-            <li><a href="{{ route('admin.dia_diem.index') }}">📍 Địa điểm</a></li>
-            <li><a href="{{ route('admin.khachhang.index') }}">👥 Khách hàng</a></li>
-            <li><a href="{{ route('admin.users') }}">👤 Người dùng</a></li>
-            <li><a href="{{ route('admin.huongdanvien.index') }}">🧑‍✈️ Hướng dẫn viên</a></li>
-            <li><a href="{{ route('admin.statistics.revenue') }}">📈Thống kê doanh thu</a></li>
-        </ul>
+            <ul class="sidebar-menu">
+                <li><a href="{{ route('admin.dashboard') }}">📊 Dashboard</a></li>
 
-        <div class="sidebar-footer">
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class="btn btn-outline-light w-100">
-                    Đăng xuất
-                </button>
-            </form>
-        </div>
-    </aside>
+                @if (auth('admin')->user()->role === 'SUPER_ADMIN')
+                    <li><a href="{{ route('admin.tour.index') }}">🧳 Quản lý tour</a></li>
+                    <li><a href="{{ route('admin.bookings') }}">📑 Booking</a></li>
+                    <li><a href="{{ route('admin.dia_diem.index') }}">📍 Địa điểm</a></li>
 
-    <!-- MAIN CONTENT -->
-    <main class="admin-main">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">👥 Quản lý người dùng</a>
 
-        <!-- TOPBAR -->
-        <div class="admin-topbar shadow-sm">
-            <span class="fw-semibold">Xin chào, {{ Auth::user()->name ?? 'Admin' }}</span>
-        </div>
+                        <ul class="dropdown-menu shadow" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="{{ route('admin.users.create') }}">🛠 Quản trị</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.khachhang.index') }}">👥 Khách hàng </a></li>
+                            <li> <a class="dropdown-item" href="{{ route('admin.users') }}">👤 Người dùng</a></li>
+                            <li><a class="dropdown-item" href="{{ route('admin.huongdanvien.index') }}">🧑‍✈️ Hướng dẫn viên</a></li>
+                        </ul>
+                    </li>
 
-        <!-- CONTENT -->
-        <div class="admin-content">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+                    <li>
+                        <a href="{{ route('admin.statistics.revenue') }}">
+                            📈 Thống kê doanh thu
+                        </a>
+                    </li>
+                @endif
 
-            @if (session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
 
-            @yield('content')
-        </div>
+                @if (auth('admin')->user()->role === 'BOOKING_STAFF')
+                    <li><a href="{{ route('admin.bookings') }}">📑 Booking</a></li>
+                    <li><a href="{{ route('admin.khachhang.index') }}">👥 Khách hàng</a></li>
+                @endif
 
-    </main>
+                @if (auth('admin')->user()->role === 'TOUR_MANAGER')
+                    <li><a href="{{ route('admin.tour.index') }}">🧳 Quản lý tour</a></li>
+                    <li><a href="{{ route('admin.dia_diem.index') }}">📍 Địa điểm</a></li>
+                    <li><a href="{{ route('admin.huongdanvien.index') }}">🧑‍✈️ Hướng dẫn viên</a></li>
+                @endif
 
-</div>
+            </ul>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-@stack('scripts')
+            <div class="sidebar-footer">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn btn-outline-light w-100">
+                        Đăng xuất
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="admin-main">
+
+            <!-- TOPBAR -->
+            <div class="admin-topbar shadow-sm">
+                <span class="fw-semibold">Xin chào, {{ Auth::user()->name ?? 'Admin' }}</span>
+            </div>
+
+            <!-- CONTENT -->
+            <div class="admin-content">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                @yield('content')
+            </div>
+
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @stack('scripts')
 </body>
 
 </html>

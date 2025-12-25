@@ -10,8 +10,6 @@
             <th>ID</th>
             <th>Tên</th>
             <th>Email</th>
-            <th>Quyền</th>
-            <th class="text-center">Hành động</th>
         </tr>
     </thead>
 
@@ -24,24 +22,6 @@
 
                 <td>{{ $u->email }}</td>
 
-                <td>
-                    @if ($u->role === 'admin')
-                        <span class="badge badge-danger">Admin</span>
-                    @else
-                        <span class="badge badge-info">User</span>
-                    @endif
-                </td>
-
-                <td class="text-center">
-                    <form method="POST"
-                          action="{{ route('admin.users.changeRole', $u->id) }}"
-                          onsubmit="return confirm('Bạn có chắc muốn đổi quyền người dùng này?')">
-                        @csrf
-                        <button class="btn btn-warning btn-sm">
-                            Đổi quyền
-                        </button>
-                    </form>
-                </td>
             </tr>
         @endforeach
     </tbody>
