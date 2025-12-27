@@ -8,6 +8,8 @@ use App\Http\Controllers\TourController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HuongDanVien\AuthController;
+use App\Http\Controllers\HuongDanVien\TourHDVController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -53,7 +55,29 @@ Route::post('/tour/{id}/review', [ReviewController::class, 'store'])
     ->middleware('auth')
     ->name('review.store');
 
-// routes trang cá nhân:
+// routes trang cá nhân khách:
 Route::get('/profile', [ProfileController::class, 'index'])
     ->middleware('auth')
     ->name('profile');
+
+//route cho hdv
+Route::prefix('huongdanvien')->group(function () {
+
+    Route::get('/login', [AuthController::class, 'showLogin'])
+        ->name('huongdanvien.login');
+
+    Route::post('/login', [AuthController::class, 'login'])
+        ->name('huongdanvien.login.submit');
+
+    Route::middleware('auth:huongdanvien')->group(function () {
+
+        Route::get('/', [TourHDVController::class, 'dashboard'])
+            ->name('huongdanvien.dashboard');
+
+        Route::get('/profile', [AuthController::class, 'profile'])
+            ->name('huongdanvien.profile');
+
+        Route::post('/logout', [AuthController::class, 'logout'])
+            ->name('huongdanvien.logout');
+    });
+});

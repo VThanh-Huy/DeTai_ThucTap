@@ -10,17 +10,32 @@ use App\Models\HuongDanVien;
 
 class TourController extends Controller
 {
-    public function index()
-    {
-        
-        return view('admin.tour.index', [
-            'tours' => Tour::with('diaDiems.mien', 'huongDanVien')->get(),
-            'miens' => Mien::all(),
-            'hdvs'  => HuongDanVien::all()
-        ]);
+    public function index(Request $request)
+{
+    $query = Tour::with('diaDiems.mien', 'huongDanVien');
+
+    if ($request->filled('keyword')) {
+        $query->where('ten_tour', 'like', '%' . $request->keyword . '%');
     }
 
-    
+    if ($request->filled('trang_thai')) {
+        $query->where('trang_thai', $request->trang_thai);
+    }
+
+    $tours = $query
+        ->orderBy('id_tour', 'desc')
+        ->paginate(5)
+        ->withQueryString();
+
+    return view('admin.tour.index', [
+        'tours' => $tours,
+        'miens' => Mien::all(),
+        'hdvs'  => HuongDanVien::all()
+    ]);
+}
+
+
+
     public function store(Request $request)
     {
         Tour::create($request->all());

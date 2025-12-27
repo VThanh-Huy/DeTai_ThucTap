@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\KhachHangController;
 use App\Http\Controllers\Admin\StatisticController;
 use App\Http\Controllers\Admin\AdminAuthController;
 
+
 Route::prefix('admin')->group(function () {
 
     Route::middleware('guest:admin')->group(function () {
@@ -117,5 +118,6 @@ Route::prefix('admin')
             // tour
             Route::resource('tour', TourController::class)
                 ->except(['show']);
+            
         });
     });

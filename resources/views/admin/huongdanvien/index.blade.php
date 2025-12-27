@@ -49,19 +49,19 @@
             <form id="createForm" method="POST" action="{{ route('admin.huongdanvien.store') }}">
                 @csrf
 
-                <input name="ten_hdv" placeholder="Tên">
-                <input name="email" placeholder="Email">
-                <input type="date" name="ngay_sinh">
+                <input name="ten_hdv" placeholder="Tên"required>
+                <input name="email" placeholder="Email" required>
+                <input type="date" name="ngay_sinh" required>
                 <input name="sdt" placeholder="Số điện thoại">
-                <select name="gioi_tinh">
-                    <option value="">-- Giới tính --</option>
+                <select name="gioi_tinh" required>
+                    <option value="" >-- Giới tính --</option>
                     <option value="Nam">Nam</option>
                     <option value="Nữ">Nữ</option>
                 </select>
 
-                <input type="number" name="nam_bat_dau" placeholder="Năm bắt đầu">
-                <input name="ngon_ngu" placeholder="Ngoại ngữ">
-                <input name="kinh_nghiem" placeholder="Lĩnh vực">
+                <input type="number" name="nam_bat_dau" placeholder="Năm bắt đầu" required>
+                <input name="ngon_ngu" placeholder="Ngoại ngữ" required>
+                <input name="kinh_nghiem" placeholder="Lĩnh vực" required>
 
                 <button type="submit">Thêm</button>
             </form>

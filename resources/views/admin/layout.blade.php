@@ -35,8 +35,8 @@
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">👥 Quản lý người dùng</a>
 
-                        <ul class="dropdown-menu shadow" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href="{{ route('admin.users.create') }}">🛠 Quản trị</a></li>
+                        <ul class="dropdown-menu shadow ms-5" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item " href="{{ route('admin.users.create') }}">🛠 Quản trị</a></li>
                             <li><a class="dropdown-item" href="{{ route('admin.khachhang.index') }}">👥 Khách hàng </a></li>
                             <li> <a class="dropdown-item" href="{{ route('admin.users') }}">👤 Người dùng</a></li>
                             <li><a class="dropdown-item" href="{{ route('admin.huongdanvien.index') }}">🧑‍✈️ Hướng dẫn viên</a></li>
