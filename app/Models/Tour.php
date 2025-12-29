@@ -8,8 +8,14 @@ class Tour extends Model
 {
     protected $table = 'tour';
     protected $primaryKey = 'id_tour';
+    protected $casts = [
+        'lich_trinh' => 'array'
+    ];
+    protected $attributes = [
+        'lich_trinh' => '[]',
+    ];
 
-    public $timestamps = false; 
+    public $timestamps = false;
 
     protected $fillable = [
         'ten_tour',
@@ -17,6 +23,7 @@ class Tour extends Model
         'so_cho',
         'gia_tien',
         'mo_ta',
+        'lich_trinh',
         'hinh_anh',
         'id_hdv',
         'ngay_bat_dau',
@@ -31,11 +38,11 @@ class Tour extends Model
             'id_hdv'      // primary key bảng huong_dan_vien
         );
     }
-    
-    public function lichTrinh()
-    {
-        return $this->hasMany(LichTrinh::class, 'id_tour');
-    }
+
+    // public function lichTrinh()
+    // {
+    //     return $this->hasMany(LichTrinh::class, 'id_tour');
+    // }
 
     public function diaDiems()
     {

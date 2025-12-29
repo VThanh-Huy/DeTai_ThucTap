@@ -18,7 +18,7 @@
             </option>
         </select>
 
-        <button class="btn btn-primary">🔍 Tìm kiếm</button>
+        <button class="btn btn-primary">Tìm kiếm 🔍</button>
     </form>
 
     <button class="btn btn-outline-info" onclick="openCreateModal()">Thêm tour</button>
@@ -55,6 +55,7 @@
             </tr>
         @endforeach
     </table>
+
     <div class="d-flex justify-content-center mt-3">
         {{ $tours->links('pagination::bootstrap-5') }}
     </div>
@@ -71,8 +72,7 @@
             <div class="modal-body">
 
                 <div class="row g-3">
-                    <!-- THÔNG TIN -->
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="info-box">
                             <p><strong>Giá:</strong> <span id="detail_gia"></span></p>
                             <p><strong>Số ngày:</strong> <span id="detail_so_ngay"></span></p>
@@ -80,16 +80,19 @@
                             <p><strong>Ngày khởi hành:</strong> <span id="detail_ngay"></span></p>
                             <p><strong>Miền:</strong> <span id="detail_mien"></span></p>
                             <p><strong>Hướng dẫn viên:</strong> <span id="detail_hdv"></span></p>
+                            <p><strong>Lịch trình:</strong></p>
+                            <div id="detail_lich_trinh" class="mt-2"></div>
+
                         </div>
                     </div>
 
-                    <!-- HÌNH ẢNH -->
-                    <div class="col-md-5 text-center">
-                        <img id="detail_image" class="img-fluid rounded shadow" src="" alt="Ảnh tour">
+                    <div class="col-md-6 text-center w-50">
+                        <img id="detail_image" class="img-fluid rounded shadow w-100" style="height: 35vh" src=""
+                            alt="Ảnh tour">
                     </div>
                 </div>
 
-                <div class="mt-4">
+                <div class="mt-2">
                     <h6 class="fw-bold">Mô tả</h6>
                     <p id="detail_mo_ta" class="text-muted"></p>
                 </div>
@@ -115,68 +118,137 @@
     </div>
 
 
-
     <div id="createModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeCreateModal()">&times;</span>
+            <div>
+                <span class="close" onclick="closeCreateModal()">&times;</span>
+                <h3>Thêm tour mới</h3>
 
-            <h3>Thêm tour</h3>
+            </div>
 
-            <form method="POST" action="{{ route('admin.tour.store') }}">
+            <form method="POST" action="{{ route('admin.tour.store') }}" enctype="multipart/form-data">
+
                 @csrf
-                <input name="ten_tour" placeholder="Tên tour">
-                <input name="gia_tien" type="number" placeholder="Giá">
-                <input name="so_ngay" type="number" placeholder="Số ngày">
 
-                <textarea name="mo_ta" placeholder="Mô tả"></textarea>
+                <div class="modal-body">
+                    <div class="row g-3">
 
-                <button type="submit">Thêm</button>
+                        <div class="col-lg-6">
+                            <label class="form-label">Tên tour</label>
+                            <input class="form-control" name="ten_tour" required>
+
+                            <label class="form-label mt-2">Giá tiền</label>
+                            <input class="form-control" type="number" name="gia_tien" required>
+
+                            <label class="form-label mt-2">Số ngày</label>
+                            <input class="form-control" type="number" name="so_ngay" id="create_so_ngay" required>
+
+                            <label class="form-label mt-2">Hướng dẫn viên</label>
+                            <select class="form-select" name="id_hdv">
+                                <option value="">-- Chọn hướng dẫn viên --</option>
+                                @foreach ($hdvs as $hdv)
+                                    <option value="{{ $hdv->id_hdv }}">
+                                        {{ $hdv->ten_hdv }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <label class="form-label">Miền</label>
+                            <select id="createMienSelect" class="form-select">
+                                <option value="">-- Chọn miền --</option>
+                                @foreach ($miens as $mien)
+                                    <option value="{{ $mien->id_mien }}">
+                                        {{ $mien->ten_mien }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                            <label class="form-label mt-2">Địa điểm</label>
+                            <div id="createDiaDiemBox" class="row g-2"></div>
+
+                            <label class="form-label mt-2">Hình ảnh</label>
+                            <input type="file" class="form-control" name="hinh_anh" accept="image/*">
+                            <label class="form-label">Mô tả</label>
+                            <textarea class="form-control" name="mo_ta" rows="3" required></textarea>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="fw-bold mt-2">
+                                Lịch trình theo ngày
+                            </label>
+                            <div id="createLichTrinhBox"></div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success w-50 d-block mx-auto">
+                        Thêm
+                    </button>
+                </div>
             </form>
         </div>
     </div>
 
+
     <div id="editModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeEditModal()">&times;</span>
-
-            <h3>Cập nhật tour</h3>
+            <div>
+                <span class="close " onclick="closeEditModal()">&times;</span>
+                <h3>Cập nhật tour</h3>
+            </div>
 
             <form id="editForm" enctype="multipart/form-data" method="POST">
                 @csrf
                 @method('PUT')
+                <div class="modal-body">
+                    <div class="row">
 
-                <label>Tên tour</label>
-                <input id="edit_ten_tour" name="ten_tour">
+                        <div class="col-lg-6">
+                            <label>Tên tour</label>
+                            <input id="edit_ten_tour" name="ten_tour">
 
-                <label>Giá tiền</label>
-                <input id="edit_gia_tien" type="number" name="gia_tien">
+                            <label>Giá tiền</label>
+                            <input id="edit_gia_tien" type="number" name="gia_tien">
 
-                <label>Số ngày</label>
-                <input id="edit_so_ngay" type="number" name="so_ngay">
-                <label>Hướng dẫn viên</label>
-                <select id="edit_id_hdv" name="id_hdv">
-                    <option value="">-- Chọn hướng dẫn viên --</option>
-                    @foreach ($hdvs as $hdv)
-                        <option value="{{ $hdv->id_hdv }}">
-                            {{ $hdv->ten_hdv }}
-                        </option>
-                    @endforeach
-                </select>
+                            <label>Số ngày</label>
+                            <input id="edit_so_ngay" type="number" name="so_ngay">
+                            <label>Hướng dẫn viên</label>
+                            <select id="edit_id_hdv" name="id_hdv">
+                                <option value="">-- Chọn hướng dẫn viên --</option>
+                                @foreach ($hdvs as $hdv)
+                                    <option value="{{ $hdv->id_hdv }}">
+                                        {{ $hdv->ten_hdv }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Miền</label>
+                            <select id="mienSelect">
+                                <option value="">-- Chọn miền --</option>
+                                @foreach ($miens as $mien)
+                                    <option value="{{ $mien->id_mien }}">{{ $mien->ten_mien }}</option>
+                                @endforeach
+                            </select>
+                            <label>Hình ảnh</label>
+                            <input type="file" name="hinh_anh" accept="image/*">
 
-                <select id="mienSelect">
-                    <option value="">-- Chọn miền --</option>
-                    @foreach ($miens as $mien)
-                        <option value="{{ $mien->id_mien }}">{{ $mien->ten_mien }}</option>
-                    @endforeach
-                </select>
-                <label>Hình ảnh</label>
-                <input type="file" name="hinh_anh" accept="image/*">
+                            <div id="diaDiemBox" class=""></div>
 
-                <div id="diaDiemBox"></div>
+                            <textarea id="edit_mo_ta" class="w-100" name="mo_ta" required></textarea>
 
-                <textarea id="edit_mo_ta" class="w-100" name="mo_ta" required></textarea>
-
-                <button type="submit">Cập nhật</button>
+                        </div>
+                        <label><strong>Lịch trình theo ngày:</strong></label>
+                        <div id="lichTrinhBox" class="mb-3"></div>
+                    </div>
+                    <button type="submit" class="w-50 d-block mx-auto">Cập nhật</button>
+                </div>
             </form>
         </div>
     </div>

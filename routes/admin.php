@@ -77,21 +77,6 @@ Route::prefix('admin')
             Route::resource('tour', TourController::class)
                 ->except(['show']);
 
-            // địa điểm
-            Route::get('/dia_diem', [DiaDiemController::class, 'index'])
-                ->name('dia_diem.index');
-
-            Route::post('/dia_diem', [DiaDiemController::class, 'store'])
-                ->name('dia_diem.store');
-
-            Route::put('/dia_diem/{id}', [DiaDiemController::class, 'update'])
-                ->name('dia_diem.update');
-
-            Route::delete('/dia_diem/{id}', [DiaDiemController::class, 'destroy'])
-                ->name('dia_diem.destroy');
-
-            Route::get('/dia-diem-by-mien/{id_mien}', [DiaDiemController::class, 'getByMien']);
-
             // khách hàng
             Route::get('/khachhang', [KhachHangController::class, 'index'])
                 ->name('khachhang.index');
@@ -118,6 +103,19 @@ Route::prefix('admin')
             // tour
             Route::resource('tour', TourController::class)
                 ->except(['show']);
-            
+            // địa điểm
+            Route::get('/dia_diem', [DiaDiemController::class, 'index'])
+                ->name('dia_diem.index');
+
+            Route::post('/dia_diem', [DiaDiemController::class, 'store'])
+                ->name('dia_diem.store');
+
+            Route::put('/dia_diem/{id}', [DiaDiemController::class, 'update'])
+                ->name('dia_diem.update');
+
+            Route::delete('/dia_diem/{id}', [DiaDiemController::class, 'destroy'])
+                ->name('dia_diem.destroy');
+
+            Route::get('/dia-diem-by-mien/{id_mien}', [DiaDiemController::class, 'getByMien']);
         });
     });

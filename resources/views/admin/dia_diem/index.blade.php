@@ -3,11 +3,14 @@
     <link rel="stylesheet" href="{{ asset('CSS/StyleAdmin/stylehdv.css') }}">
 @endpush
 @section('content')
-<h2>Quản lý địa điểm</h2>
+<div class="row">
+<h2 class="col-lg-10">Quản lý địa điểm</h2>
 
-<button class="btn btn-outline-info" onclick="openCreateModal()">
+<button class="btn btn-outline-info col-lg-1 me-1" onclick="openCreateModal()">
     Thêm
 </button>
+</div>
+
 
 <table class="w-100 mt-3 table table-bordered table-fixed">
     <tr>
@@ -36,8 +39,11 @@
         </tr>
     @endforeach
 </table>
+    <div class="d-flex justify-content-center mt-3">
+        {{ $diaDiems->links('pagination::bootstrap-5') }}
+    </div>
 
-{{-- MODAL THÊM --}}
+{{-- thêm --}}
 <div id="createModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeCreateModal()">&times;</span>
@@ -64,7 +70,7 @@
     </div>
 </div>
 
-{{-- MODAL SỬA --}}
+{{-- sửa --}}
 <div id="editModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeEditModal()">&times;</span>
@@ -90,7 +96,7 @@
     </div>
 </div>
 
-{{-- MODAL XÓA --}}
+{{-- xóa --}}
 <div id="deleteModal" class="modal">
     <div class="modal-content delete-box">
         <h3>Xác nhận xóa</h3>

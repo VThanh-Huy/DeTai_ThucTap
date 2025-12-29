@@ -39,11 +39,14 @@
         <div class="mt-5">
             <h4 class="fw-bold">Lịch trình</h4>
             <ul class="list-group">
-                @foreach ($tour->lichTrinh as $lt)
-                    <li class="list-group-item">
-                        <strong>Ngày {{ $lt->ngay }}:</strong> {{ $lt->hoat_dong }}
-                    </li>
-                @endforeach
+                @if ($tour->lich_trinh && count($tour->lich_trinh))
+    @foreach ($tour->lich_trinh as $ngay => $noiDung)
+        <p><strong>Ngày {{ $ngay }}:</strong> {{ $noiDung }}</p>
+    @endforeach
+@else
+    <p>Chưa có lịch trình</p>
+@endif
+
             </ul>
         </div>
 

@@ -11,7 +11,7 @@ class AdminBookingController extends Controller
     {
         $bookings = Booking::with(['tour', 'user'])
             ->orderBy('ngay_dat', 'desc')
-            ->get();
+            ->paginate(6);
 
         return view('admin.bookings.index', compact('bookings'));
     }

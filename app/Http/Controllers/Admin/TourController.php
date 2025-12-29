@@ -11,30 +11,28 @@ use App\Models\HuongDanVien;
 class TourController extends Controller
 {
     public function index(Request $request)
-{
-    $query = Tour::with('diaDiems.mien', 'huongDanVien');
+    {
+        $query = Tour::with('diaDiems.mien', 'huongDanVien');
 
-    if ($request->filled('keyword')) {
-        $query->where('ten_tour', 'like', '%' . $request->keyword . '%');
+        if ($request->filled('keyword')) {
+            $query->where('ten_tour', 'like', '%' . $request->keyword . '%');
+        }
+
+        if ($request->filled('trang_thai')) {
+            $query->where('trang_thai', $request->trang_thai);
+        }
+
+        $tours = $query
+            ->orderBy('id_tour', 'desc')
+            ->paginate(5)
+            ->withQueryString();
+
+        return view('admin.tour.index', [
+            'tours' => $tours,
+            'miens' => Mien::all(),
+            'hdvs'  => HuongDanVien::all()
+        ]);
     }
-
-    if ($request->filled('trang_thai')) {
-        $query->where('trang_thai', $request->trang_thai);
-    }
-
-    $tours = $query
-        ->orderBy('id_tour', 'desc')
-        ->paginate(5)
-        ->withQueryString();
-
-    return view('admin.tour.index', [
-        'tours' => $tours,
-        'miens' => Mien::all(),
-        'hdvs'  => HuongDanVien::all()
-    ]);
-}
-
-
 
     public function store(Request $request)
     {
@@ -47,6 +45,10 @@ class TourController extends Controller
         $tour = Tour::findOrFail($id);
 
         $data = $request->except(['dia_diem', 'hinh_anh']);
+
+        if ($request->has('lich_trinh')) {
+            $data['lich_trinh'] = $request->lich_trinh;
+        }
 
         if ($request->hasFile('hinh_anh')) {
             $file = $request->file('hinh_anh');
@@ -71,7 +73,6 @@ class TourController extends Controller
 
         return redirect()->back();
     }
-
 
     public function destroy($id)
     {

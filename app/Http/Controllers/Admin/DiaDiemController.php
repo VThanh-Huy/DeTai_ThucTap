@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -13,13 +14,18 @@ class DiaDiemController extends Controller
         return DiaDiem::where('id_mien', $id_mien)->get();
     }
 
-    public function index()
+
+    public function index(Request $request)
     {
-        $diaDiems = DiaDiem::with('mien')->get();
+        $diaDiems = DiaDiem::with('mien')
+            ->orderBy('id_dd')
+            ->paginate(8); 
+
         $miens = Mien::all();
 
         return view('admin.dia_diem.index', compact('diaDiems', 'miens'));
     }
+
 
     public function store(Request $request)
     {
@@ -46,4 +52,3 @@ class DiaDiemController extends Controller
             ->get();
     }
 }
-

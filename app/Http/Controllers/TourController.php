@@ -15,17 +15,14 @@ class TourController extends Controller
     {
         $query = Tour::withAvg('reviews', 'so_sao');
 
-        //  Tìm theo tên
         if ($request->filled('keyword')) {
             $query->where('ten_tour', 'like', '%' . $request->keyword . '%');
         }
 
-        //  Ngày bắt đầu
         if ($request->filled('start_date')) {
             $query->whereDate('ngay_bat_dau', '>=', $request->start_date);
         }
 
-        // Ngày kết thúc
         if ($request->filled('end_date')) {
             $query->whereDate('ngay_ket_thuc', '<=', $request->end_date);
         }
@@ -43,7 +40,6 @@ class TourController extends Controller
     {
         $tour = Tour::with([
             'huongDanVien',
-            'lichTrinh',
             'diaDiems',
             'reviews' => function ($q) {
                 $q->whereNotNull('user_id');
