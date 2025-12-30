@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class HuongDanVienController extends Controller
 {
-    // LIST
     public function index()
     {
         $huongdanvien = HuongDanVien::all();
@@ -22,29 +21,29 @@ class HuongDanVienController extends Controller
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'ten_hdv' => 'required',
-        'email' => 'required|email|unique:huong_dan_vien,email',
-        'nam_bat_dau' => 'required|integer'
-    ]);
+    {
+        $request->validate([
+            'ten_hdv' => 'required',
+            'email' => 'required|email|unique:huong_dan_vien,email',
+            'nam_bat_dau' => 'required|integer'
+        ]);
 
-    HuongDanVien::create([
-        'ten_hdv' => $request->ten_hdv,
-        'email' => $request->email,
-        'password' => 'HDV@2025', // tự hash qua mutator
-        'ngay_sinh' => $request->ngay_sinh,
-        'gioi_tinh' => $request->gioi_tinh,
-        'sdt' => $request->sdt,
-        'nam_bat_dau' => $request->nam_bat_dau,
-        'ngon_ngu' => $request->ngon_ngu,
-        'kinh_nghiem' => $request->kinh_nghiem,
-    ]);
+        HuongDanVien::create([
+            'ten_hdv' => $request->ten_hdv,
+            'email' => $request->email,
+            'password' => 'HDV@2025', // tự hash qua mutator
+            'ngay_sinh' => $request->ngay_sinh,
+            'gioi_tinh' => $request->gioi_tinh,
+            'sdt' => $request->sdt,
+            'nam_bat_dau' => $request->nam_bat_dau,
+            'ngon_ngu' => $request->ngon_ngu,
+            'kinh_nghiem' => $request->kinh_nghiem,
+        ]);
 
-    return redirect()
-        ->route('admin.huongdanvien.index')
-        ->with('success', 'Đã thêm HDV. Mật khẩu mặc định: HDV@2025');
-}
+        return redirect()
+            ->route('admin.huongdanvien.index')
+            ->with('success', 'Đã thêm HDV. Mật khẩu mặc định: HDV@2025');
+    }
 
     public function edit($id)
     {
@@ -52,7 +51,7 @@ class HuongDanVienController extends Controller
         return view('admin.huongdanvien.edit', compact('huongdanvien'));
     }
 
-   
+
     public function update(Request $request, $id)
     {
         $hdv = HuongDanVien::findOrFail($id);
@@ -63,7 +62,7 @@ class HuongDanVienController extends Controller
             ->with('success', 'Cập nhật thành công');
     }
 
-    
+
     public function destroy($id)
     {
         $hdv = HuongDanVien::findOrFail($id);
@@ -80,6 +79,5 @@ class HuongDanVienController extends Controller
         return redirect()
             ->route('admin.huongdanvien.index')
             ->with('success', 'Đã xóa');
-
     }
 }

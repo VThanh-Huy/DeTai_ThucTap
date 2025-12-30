@@ -48,7 +48,7 @@ return [
 
         'huongdanvien' => [
             'driver' => 'session',
-            'provider' => 'huong_dan_vien',
+            'provider' => 'huongdanvien',
         ],
     ],
 
@@ -63,7 +63,7 @@ return [
             'model' => App\Models\Admin::class,
         ],
 
-        'huong_dan_vien' => [
+        'huongdanvien' => [
             'driver' => 'eloquent',
             'model' => App\Models\HuongDanVien::class,
         ],

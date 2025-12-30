@@ -71,13 +71,21 @@ Route::prefix('huongdanvien')->group(function () {
 
     Route::middleware('auth:huongdanvien')->group(function () {
 
-        Route::get('/', [TourHDVController::class, 'dashboard'])
-            ->name('huongdanvien.dashboard');
+    Route::get('/', [TourHDVController::class, 'dashboard'])
+        ->name('huongdanvien.dashboard');
 
-        Route::get('/profile', [AuthController::class, 'profile'])
-            ->name('huongdanvien.profile');
+    Route::get('/profile', [AuthController::class, 'profile'])
+        ->name('huongdanvien.profile');
 
-        Route::post('/logout', [AuthController::class, 'logout'])
-            ->name('huongdanvien.logout');
-    });
+    // đổi mật khẩu
+    Route::get('/change-password', [AuthController::class, 'showChangePassword'])
+        ->name('huongdanvien.password.form');
+
+    Route::post('/change-password', [AuthController::class, 'changePassword'])
+        ->name('huongdanvien.password.update');
+
+    Route::post('/logout', [AuthController::class, 'logout'])
+        ->name('huongdanvien.logout');
+});
+
 });

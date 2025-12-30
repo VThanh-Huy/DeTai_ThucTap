@@ -10,10 +10,10 @@
 </head>
 <body>
     <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-bold">{{ auth('huongdanvien')->user()->ten_hdv }}</h4>
+    <h4 class="fw-bold">Hướng dẫn viên: {{ auth('huongdanvien')->user()->ten_hdv }}</h4>
 
     <div class="dropdown">
-        <button class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown">
+        <button class="btn btn-outline-primary dropdown-toggle m-3" data-bs-toggle="dropdown">
             👤 Tài khoản
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
