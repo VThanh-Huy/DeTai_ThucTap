@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Booking;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingApprovedMail;
 
 class AdminBookingController extends Controller
 {
@@ -18,8 +20,16 @@ class AdminBookingController extends Controller
 
     public function approve($id)
     {
-        Booking::where('id_booking', $id)
-            ->update(['trang_thai' => 'DA_XAC_NHAN']);
+        // 1. Cập nhật trạng thái
+
+        $booking = Booking::with(['user', 'tour'])
+            ->where('id_booking', $id)
+            ->firstOrFail();
+
+
+        // 2. Gửi email
+        Mail::to($booking->user->email)
+            ->send(new BookingApprovedMail($booking));
 
         return back()->with('success', 'Đã duyệt đơn');
     }
