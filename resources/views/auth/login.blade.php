@@ -30,6 +30,11 @@
 
                         <button class="btn btn-primary w-100">Đăng nhập</button>
 
+                        <div class="text-center mt-2">
+    <a href="{{ route('password.request') }}" class="text-decoration-none">
+        Quên mật khẩu?
+    </a>
+</div>
                         <p class="text-center mt-3">
                             Chưa có tài khoản? <a href="/register">Đăng ký</a>
                         </p>

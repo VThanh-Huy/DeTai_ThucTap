@@ -10,6 +10,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HuongDanVien\AuthController;
 use App\Http\Controllers\HuongDanVien\TourHDVController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,6 +61,19 @@ Route::post('/tour/{id}/review', [ReviewController::class, 'store'])
 Route::get('/profile', [ProfileController::class, 'index'])
     ->middleware('auth')
     ->name('profile');
+
+// route quên mật khẩu
+Route::get('/forgot_password', [ForgotPasswordController::class, 'show'])
+    ->name('password.request');
+
+Route::post('/forgot_password', [ForgotPasswordController::class, 'sendResetLink'])
+    ->name('password.email');
+
+Route::get('/reset_password/{token}', [ResetPasswordController::class, 'show'])
+    ->name('password.reset');
+
+Route::post('/reset_password', [ResetPasswordController::class, 'reset'])
+    ->name('password.update'); 
 
 //route cho hdv
 Route::prefix('huongdanvien')->group(function () {
