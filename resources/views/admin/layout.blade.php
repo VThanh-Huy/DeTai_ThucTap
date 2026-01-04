@@ -74,7 +74,6 @@
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
         <main class="admin-main">
 
             <!-- TOPBAR -->
@@ -82,7 +81,7 @@
                 <span class="fw-semibold">Xin chào, {{ Auth::user()->name ?? 'Admin' }}</span>
             </div>
 
-            <!-- CONTENT -->
+            <!-- noidung -->
             <div class="admin-content">
                 @if (session('success'))
                     <div class="alert alert-success">

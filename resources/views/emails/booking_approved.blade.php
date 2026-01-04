@@ -12,7 +12,7 @@
     </p>
 
     <p>
-        Ngày đặt: {{ $booking->ngay_bat_dau }} <br>
+        Ngày đặt: {{ $booking->ngay_dat }} <br>
         Số lượng khách: {{ $booking->so_luong }}
     </p>
 

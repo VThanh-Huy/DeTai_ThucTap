@@ -27,6 +27,10 @@ class AdminBookingController extends Controller
             ->firstOrFail();
 
 
+        $booking->update([
+            'trang_thai' => 'DA_XAC_NHAN'
+        ]);
+
         // 2. Gửi email
         Mail::to($booking->user->email)
             ->send(new BookingApprovedMail($booking));
