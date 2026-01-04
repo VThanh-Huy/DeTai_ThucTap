@@ -30,7 +30,7 @@
     border-radius: 5px;
 }
 .pt-navbar {
-    padding-top: 80px; 
+    padding-top: 20%; 
 }
 
 .tour-card {
@@ -42,7 +42,7 @@
 }
 .hero {
     position: relative;
-    height: 450px;
+    height: 75vh;
     overflow: hidden;
 }
 .hero img {

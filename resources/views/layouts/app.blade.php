@@ -22,7 +22,7 @@
     {{-- Thông báo đặt thành công --}}
     @if (session('success'))
         <div class="alert alert-success text-center mt-3">
-            {{ session('success') }}
+            {{ session('success') }}</div>
         </div>
     @endif
 
@@ -68,7 +68,6 @@
                         </a>
                     </li>
                 </ul>
-
 
                 <!-- Search -->
                 <form class="d-flex position-relative me-3" action="{{ route('tour.index') }}" method="GET">

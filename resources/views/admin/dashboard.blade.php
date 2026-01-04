@@ -5,7 +5,6 @@
 
 <div class="row g-3">
 
-    <!-- TOUR -->
     <div class="col-md-4">
         <div class="card shadow-sm border-0">
             <div class="card-body text-center">
@@ -15,7 +14,6 @@
         </div>
     </div>
 
-    <!-- BOOKING -->
     <div class="col-md-4">
         <div class="card shadow-sm border-0">
             <div class="card-body text-center">
@@ -25,7 +23,6 @@
         </div>
     </div>
 
-    <!-- PENDING -->
     <div class="col-md-4">
         <div class="card shadow-sm border-0">
             <div class="card-body text-center">
@@ -35,13 +32,10 @@
         </div>
     </div>
 
-    <!-- USERS -->
-    
 
 </div>
 
 <div class="row mt-5">
-    <!-- BÊN PHẢI -->
     <div class="col-md-12">
         <div class="card shadow-sm border-0">
             <div class="card-header fw-bold bg-white">

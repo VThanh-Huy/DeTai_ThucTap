@@ -1,15 +1,68 @@
-table{
-    border:1;
-    background-color:white;
+
+table {
+    border-collapse: collapse;
+    background-color: white;
 }
-table tr:hover{
-    background-color: rgb(215, 240, 245);
+
+table th,
+table td {
+    border: 1px solid #ddd;
+    padding: 10px;
 }
-.ds_hdv, .ds_dd, .ds_kh{
-    border:1px solid #ccc; 
-    margin:10px; padding:10px; 
-    background:white
+
+table tr:hover {
+    background-color: #fafafa;
 }
+
+.table-fixed th,
+.table-fixed td {
+    text-align: center;
+    vertical-align: middle;
+    word-wrap: break-word;
+}
+
+
+.admin-table th {
+    background: #f5f5f5;
+    font-weight: 600;
+}
+
+/* ds (HDV, KH, DD) */
+.ds_hdv,
+.ds_dd,
+.ds_kh {
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    background: white;
+}
+
+/* badge trạng thái*/
+.badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+    color: white;
+}
+
+.badge-danger {
+    background: #d9534f;
+}
+
+.badge-info {
+    background: #5bc0de;
+}
+
+.badge-warning {
+    background: #f0ad4e;
+    color: #212529;
+}
+
+.badge-success {
+    background: #5cb85c;
+}
+
+/* modal thêm xóa sửa */
 .modal {
     display: none;
     position: fixed;
@@ -30,7 +83,7 @@ table tr:hover{
 
 @keyframes fadeIn {
     from { transform: translateY(-20px); opacity: 0 }
-    to { transform: translateY(0); opacity: 1 }
+    to   { transform: translateY(0); opacity: 1 }
 }
 
 .modal h3 {
@@ -39,7 +92,8 @@ table tr:hover{
     padding-bottom: 8px;
 }
 
-.modal input {
+.modal input,
+.modal select {
     width: 100%;
     padding: 8px 10px;
     margin-bottom: 10px;
@@ -71,13 +125,8 @@ table tr:hover{
 .close:hover {
     color: #000;
 }
-.modal select {
-    width: 100%;
-    padding: 8px 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+
+/* xác nhận xóa */
 .delete-box {
     max-width: 400px;
     text-align: center;
@@ -92,38 +141,8 @@ table tr:hover{
     font-size: 14px;
 }
 
-.delete-box .actions {
+.actions {
     display: flex;
     justify-content: space-between;
     gap: 10px;
 }
-
-.actions{
-    display: flex;
-    gap: 5%;
-}
-
-.badge {
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 13px;
-    color: white;
-}
-
-.badge-danger {
-    background: #d9534f;
-}
-
-.badge-info {
-    background: #5bc0de;
-}
-
-/* css địa điểm */
-.table-fixed th,
-.table-fixed td {
-    text-align: center;
-    vertical-align: middle;
-    word-wrap: break-word;
-}
-
-

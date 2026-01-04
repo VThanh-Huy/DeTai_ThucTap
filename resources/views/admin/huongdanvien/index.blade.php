@@ -1,7 +1,7 @@
 @extends('admin.layout')
 @push('styles')
     <link rel="stylesheet" href="{{ asset('CSS/StyleAdmin/stylehdv.css') }}">
-    <link rel="stylesheet" href="{{ asset('CSS/StyleAdmin/table_all.css') }}">
+
 @endpush
 @section('content')
     <h2>Quản lý hướng dẫn viên</h2>

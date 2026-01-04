@@ -1,5 +1,7 @@
 @extends('admin.layout')
-
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('CSS/StyleAdmin/stylehdv.css') }}">
+@endpush
 @section('content')
     <div class="container-fluid">
         <div class="card shadow-sm">
