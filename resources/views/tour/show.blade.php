@@ -7,7 +7,8 @@
         <div class="row">
             <!-- Ảnh -->
             <div class="col-md-6">
-                <img src="{{ asset('images/tours/' . $tour->hinh_anh) }}" class="img-fluid rounded shadow w-100">
+                <img src="{{ asset('images/tours/' . $tour->hinh_anh) }}" class="img-fluid rounded shadow w-100"
+                    style="height: 60vh">
             </div>
 
             <!-- Thông tin -->
@@ -29,9 +30,17 @@
                     {{ $tour->huongDanVien->ten_hdv ?? 'Chưa cập nhật' }}
                 </p>
 
-                <a href="{{ route('booking.create', ['id' => $tour->id_tour]) }}" class="btn btn-success mt-3">
-                    Đặt tour ngay
-                </a>
+
+                <p>
+                    @if ($tour->trang_thai == '1')
+                        <a href="{{ route('booking.create', ['id' => $tour->id_tour]) }}" class="btn btn-success mt-3">
+                            Đặt tour ngay
+                        </a>
+                    @else
+                    Trạng thái:
+                        <span class="badge bg-secondary w-25" style="height: 4vh; font-size: 15px">Đã đóng</span>
+                    @endif
+                </p>
 
             </div>
         </div>
@@ -40,12 +49,12 @@
             <h4 class="fw-bold">Lịch trình</h4>
             <ul class="list-group">
                 @if ($tour->lich_trinh && count($tour->lich_trinh))
-    @foreach ($tour->lich_trinh as $ngay => $noiDung)
-        <p><strong>Ngày {{ $ngay }}:</strong> {{ $noiDung }}</p>
-    @endforeach
-@else
-    <p>Chưa có lịch trình</p>
-@endif
+                    @foreach ($tour->lich_trinh as $ngay => $noiDung)
+                        <p><strong>Ngày {{ $ngay }}:</strong> {{ $noiDung }}</p>
+                    @endforeach
+                @else
+                    <p>Chưa có lịch trình</p>
+                @endif
 
             </ul>
         </div>

@@ -82,7 +82,6 @@
                             <p><strong>Hướng dẫn viên:</strong> <span id="detail_hdv"></span></p>
                             <p><strong>Lịch trình:</strong></p>
                             <div id="detail_lich_trinh" class="mt-2"></div>
-
                         </div>
                     </div>
 
@@ -246,6 +245,15 @@
                         </div>
                         <label><strong>Lịch trình theo ngày:</strong></label>
                         <div id="lichTrinhBox" class="mb-3"></div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Trạng thái tour</label>
+                            <select name="trang_thai" class="form-select">
+                                <option value="1">Mở bán</option>
+                                <option value="0">Đóng</option>
+                            </select>
+                        </div>
+
                     </div>
                     <button type="submit" class="w-50 d-block mx-auto">Cập nhật</button>
                 </div>

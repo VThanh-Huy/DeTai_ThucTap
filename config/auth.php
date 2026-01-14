@@ -37,8 +37,8 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+            'driver' => 'session', // Lưu trạng thía đăng nhập vào session
+            'provider' => 'users', // lấy dữ liệu từ model
         ],
 
         'admin' => [

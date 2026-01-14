@@ -17,7 +17,6 @@
 
     <div class="admin-wrapper d-flex">
 
-        <!-- SIDEBAR -->
         <aside class="admin-sidebar">
             <div class="sidebar-header">
                 <h4>ADMIN PANEL</h4>
@@ -50,7 +49,6 @@
                     </li>
                 @endif
 
-
                 @if (auth('admin')->user()->role === 'BOOKING_STAFF')
                     <li><a href="{{ route('admin.bookings') }}">📑 Booking</a></li>
                     <li><a href="{{ route('admin.khachhang.index') }}">👥 Khách hàng</a></li>
@@ -76,7 +74,6 @@
 
         <main class="admin-main">
 
-            <!-- TOPBAR -->
             <div class="admin-topbar shadow-sm">
                 <span class="fw-semibold">Xin chào, {{ Auth::user()->name ?? 'Admin' }}</span>
             </div>

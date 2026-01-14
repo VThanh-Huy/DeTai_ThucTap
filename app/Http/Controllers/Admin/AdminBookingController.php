@@ -24,18 +24,17 @@ class AdminBookingController extends Controller
 
         $booking = Booking::with(['user', 'tour'])
             ->where('id_booking', $id)
-            ->firstOrFail();
-
+            ->firstOrFail(); // lấy bản ghi thỏa điều kiện
 
         $booking->update([
             'trang_thai' => 'DA_XAC_NHAN'
         ]);
 
-        // 2. Gửi email
-        Mail::to($booking->user->email)
-            ->send(new BookingApprovedMail($booking));
+        // 2. Lấy địa chỉ email và gửi mail
+        Mail::to($booking->user->email)// lấy đ/c: từ booking lấy user -> từ user ra email
+            ->send(new BookingApprovedMail($booking)); // tạo ra một đối tượng
 
-        return back()->with('success', 'Đã duyệt đơn');
+        return back()->with('success', 'Đã duyệt đơn'); // đưa vào session
     }
 
     public function complete($id)

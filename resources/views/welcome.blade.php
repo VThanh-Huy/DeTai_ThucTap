@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
 
-    <!-- HERO -->
     <div class="hero mt-2 pt-4">
         <img src="{{ asset('images/home/main_Image.jpg') }}">
 
@@ -29,13 +28,11 @@
 
     </div>
 
-    <!-- TOUR GỢI Ý -->
     <section class="container my-5">
         <h2 class="fw-bold mb-4 fs-3">Tour nổi bật</h2>
 
         <div class="row g-4">
 
-            <!-- CARD -->
             @php
                 $tours = [
                     ["Đà Lạt 3N2Đ", "3 ngày", "2,500,000", asset('images/home/card1.jpg')],
@@ -43,7 +40,7 @@
                     ["Nha Trang 3N2Đ", "3 ngày", "2,800,000", asset('images/home/card3.jpg')],
                     ["Hà Giang 5N4Đ", "5 ngày", "4,500,000", asset('images/home/card4.jpg')],
                     ["Sapa 3N2Đ", "3 ngày", "3,300,000", asset('images/home/card5.jpg')],
-                    ["Hội An 2N1Đ", "2 ngày", "1,800,000", asset('images/home/card6.jpg')],
+                    ["Hội An 2N1Đ", "2 ngày", "1,800,000", asset('images/tours/hoian.jpg')],
                     ["Đà Nẵng 4N3Đ", "4 ngày", "3,500,000", asset('images/home/card7.jpg')],
                     ["Huế 2N1Đ", "2 ngày", "1,500,000", asset('images/home/card8.jpg')]
                 ];
